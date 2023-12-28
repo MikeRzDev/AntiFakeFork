@@ -3,7 +3,6 @@ package com.snail.antifake.deviceid.emulator;
 import static android.content.Context.BIND_AUTO_CREATE;
 
 import android.annotation.SuppressLint;
-import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +21,6 @@ import androidx.core.content.PermissionChecker;
 import com.snail.antifake.IEmulatorCheck;
 import com.snail.antifake.deviceid.AndroidDeviceIMEIUtil;
 import com.snail.antifake.deviceid.ShellAdbUtils;
-import com.snail.antifake.deviceid.deviceid.DeviceIdUtil;
 import com.snail.antifake.deviceid.deviceid.IPhoneSubInfoUtil;
 import com.snail.antifake.deviceid.deviceid.ITelephonyUtil;
 import com.snail.antifake.jni.EmulatorCheckService;
@@ -43,10 +41,10 @@ import java.nio.charset.StandardCharsets;
 
 public class EmuCheckUtil {
 
-    public static boolean mayOnEmulator(Context context) {
+    public static boolean mayOnEmulator() {
 
-        return mayOnEmulatorViaQEMU(context)
-                || isEmulatorViaBuild(context)
+        return mayOnEmulatorViaQEMU()
+                || isEmulatorViaBuild()
                 || isEmulatorFromAbi()
                 || isEmulatorFromCpu();
 
@@ -73,7 +71,7 @@ public class EmuCheckUtil {
         return result;
     }
 
-    public static boolean isEmulatorViaBuild(Context context) {
+    public static boolean isEmulatorViaBuild() {
 
         if (!TextUtils.isEmpty(PropertiesGet.getString("ro.product.model"))
                 && PropertiesGet.getString("ro.product.model").toLowerCase().contains("sdk")) {
@@ -97,7 +95,7 @@ public class EmuCheckUtil {
 
 
     //  qemu模拟器特征
-    public static boolean mayOnEmulatorViaQEMU(Context context) {
+    public static boolean mayOnEmulatorViaQEMU() {
         String qemu = PropertiesGet.getString("ro.kernel.qemu");
         return "1".equals(qemu);
     }

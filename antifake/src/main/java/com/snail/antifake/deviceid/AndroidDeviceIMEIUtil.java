@@ -27,8 +27,8 @@ import com.snail.antifake.jni.PropertiesGet;
 
 public class AndroidDeviceIMEIUtil {
 
-    public static boolean isRunOnEmulator(Context context) {
-        return EmuCheckUtil.mayOnEmulator(context);
+    public static boolean isRunOnEmulator() {
+        return EmuCheckUtil.mayOnEmulator();
 
     }
 

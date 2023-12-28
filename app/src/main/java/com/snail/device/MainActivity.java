@@ -42,9 +42,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         mActivity = this;
-        /**
-         *  子进程检测是否是模拟器，不影响UI线程
-         */
         binding.btnAsyncSimu.setOnClickListener(v -> EmuCheckUtil.checkEmulatorFromCache(getApplicationContext(),
 
                 new EmuCheckUtil.CheckEmulatorCallBack() {
@@ -60,33 +57,25 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText("  内存异步非UI进程获取是否模拟器 失败");
                     }
                 }));
-        /**
-         *  UI进程检测，可能影响UI线程
-         */
-        binding.btnSycnSycSimu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < 100; i++) {
-                    TextView textView = findViewById(R.id.btn_sycn_syc_simu);
-                    textView.setText(" isEmulator " + EmulatorDetectUtil.isEmulator(MainActivity.this));
-                }
 
+        binding.btnSycnSycSimu.setOnClickListener(v -> {
+            for (int i = 0; i < 100; i++) {
+                TextView textView = findViewById(R.id.btn_sycn_syc_simu);
+                textView.setText(" isEmulator " + EmulatorDetectUtil.isEmulator(MainActivity.this));
             }
+
         });
-//        特征值判断是否模拟器
-        binding.btnSample.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView textView = findViewById(R.id.btn_sample);
-                textView.setText("isRunOnEmulator " + AndroidDeviceIMEIUtil.isRunOnEmulator(MainActivity.this));
-            }
+
+        binding.btnSample.setOnClickListener(view -> {
+            TextView textView = findViewById(R.id.btn_sample);
+            textView.setText("isRunOnEmulator " + AndroidDeviceIMEIUtil.isRunOnEmulator());
         });
 //        综合判断一次
         binding.btnSycnInteger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TextView textView = findViewById(R.id.btn_sycn_integer);
-                textView.setText("isEmulatorFromAll " + EmulatorDetectUtil.isEmulatorFromAll(MainActivity.this));
+                textView.setText("isEmulatorFromAll " + EmulatorDetectUtil.isEmulatorFromAll());
             }
         });
 
@@ -133,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                         + "\n最终方法获取MAC地址 : " + AndroidDeviceIMEIUtil.getMacAddress(mActivity) + " 是否有效 " + AndroidDeviceIMEIUtil.isValidAddress(MacAddressUtils.getMacAddress(mActivity))
                         + "\n最终方法获取AndroidID : " + AndroidDeviceIMEIUtil.getAndroidId(mActivity)
                         + "\n最终方法获取序列号 : " + AndroidDeviceIMEIUtil.getSerialno()
-                        + "\n特征值检测是否模拟器  : " + EmuCheckUtil.mayOnEmulator(mActivity)
+                        + "\n特征值检测是否模拟器  : " + EmuCheckUtil.mayOnEmulator()
                         + " \n\nIMEI详细信息: "
                         + "\nProxy代理获取Deviceid level0 : " + IPhoneSubInfoUtil.getDeviceIdLevel0(mActivity)
                         + "\nProxy代理获取Deviceid level1 :" + IPhoneSubInfoUtil.getDeviceIdLevel1(mActivity)
