@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         binding.btnSycnSycSimu.setOnClickListener(v -> {
             for (int i = 0; i < 100; i++) {
                 TextView textView = findViewById(R.id.btn_sycn_syc_simu);
-                textView.setText(" isEmulator " + EmulatorDetectUtil.isEmulator(MainActivity.this));
+                textView.setText(" isEmulator " + EmulatorDetectUtil.isEmulator());
             }
 
         });
@@ -70,22 +70,13 @@ public class MainActivity extends AppCompatActivity {
             TextView textView = findViewById(R.id.btn_sample);
             textView.setText("isRunOnEmulator " + AndroidDeviceIMEIUtil.isRunOnEmulator());
         });
-//        综合判断一次
-        binding.btnSycnInteger.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView textView = findViewById(R.id.btn_sycn_integer);
-                textView.setText("isEmulatorFromAll " + EmulatorDetectUtil.isEmulatorFromAll());
-            }
+
+        binding.btnSycnInteger.setOnClickListener(view -> {
+            TextView textView = findViewById(R.id.btn_sycn_integer);
+            textView.setText("isEmulatorFromAll " + EmulatorDetectUtil.isEmulatorFromAll());
         });
 
-        //获取其他硬件信息
-        binding.btnHwinfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requestGetInfo();
-            }
-        });
+        binding.btnHwinfo.setOnClickListener(view -> requestGetInfo());
 
         requestGetInfo();
     }

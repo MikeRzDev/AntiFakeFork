@@ -25,7 +25,7 @@ public class EmulatorDetectUtil {
     /**
      * 同时考虑特征值跟cache
      */
-    public static boolean isEmulator(Context context) {
+    public static boolean isEmulator() {
         return detectS();
     }
 
